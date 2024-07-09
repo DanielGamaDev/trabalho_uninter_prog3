@@ -1,10 +1,12 @@
-class Nodo:
+#Feito por Daniel Gama - RU:4121047
+
+class Nodo:           #Criando Classe Nodo
     def __init__(self, numero, cor):
         self.numero = numero
         self.cor = cor
         self.proximo = None
 
-class ListaEncadeada:
+class ListaEncadeada:    #Criando Classe ListaEncadeada
     def __init__(self):
         self.head = None
 
@@ -58,26 +60,37 @@ class ListaEncadeada:
             print(f"Chamando paciente com cartão {self.head.cor} número {self.head.numero}")
             self.head = self.head.proximo
 
+def apresentacaoDoPrograma():
+    print("-- Programa Triagem Hospital // Daniel Gama RU: 4121047  --")
+    print()
+
 def menu():
     lista = ListaEncadeada()
     while True:
-        print("\n1 – Adicionar paciente à fila")
+        print()
+        print("1 – Adicionar paciente à fila")
         print("2 – Mostrar pacientes na fila")
         print("3 – Chamar paciente")
         print("4 – Sair")
         opcao = int(input("Escolha uma opção: "))
 
         if opcao == 1:
+            print()
             lista.inserir()
         elif opcao == 2:
+            print()
             lista.imprimirListaEspera()
         elif opcao == 3:
+            print()
             lista.atenderPaciente()
         elif opcao == 4:
+            print()
             print("Encerrando o programa.")
             break
         else:
             print("Opção inválida. Tente novamente.")
+            print()
 
 if __name__ == "__main__":
+    apresentacaoDoPrograma()
     menu()
