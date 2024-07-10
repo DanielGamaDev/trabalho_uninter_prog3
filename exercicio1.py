@@ -66,6 +66,7 @@ class ListaEncadeada:  # Criando Classe ListaEncadeada
             )
             self.head = self.head.proximo
 
+
 def menu():  # Função do menu principal
     lista = ListaEncadeada()
     while True:

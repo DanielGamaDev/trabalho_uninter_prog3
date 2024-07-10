@@ -1,63 +1,92 @@
+# Feito por Daniel Gama - RU:4121047
 class Nodo:
     def __init__(self, sigla, nomeEstado):
         self.sigla = sigla
         self.nomeEstado = nomeEstado
         self.proximo = None
 
+
 class TabelaHash:
     def __init__(self):
-        self.tabela = [None] * 10  # EXIGÊNCIA DE CÓDIGO 1 de 7
+        self.tabela = [
+            None
+        ] * 10  # Inicializa a tabela hash com 10 posições, todas None
 
     def funcao_hash(self, sigla):
-        if sigla == 'DF':
-            return 7  # Regra especial para o Distrito Federal
-        else:
-            return (ord(sigla[0]) + ord(sigla[1])) % 10  # Regra de hash geral
+        if sigla == "DF":
+            return 7
+        return (ord(sigla[0]) + ord(sigla[1])) % 10
 
     def inserir(self, sigla, nomeEstado):
-        posicao = self.funcao_hash(sigla)
+        indice = self.funcao_hash(sigla)
         novo_nodo = Nodo(sigla, nomeEstado)
-        novo_nodo.proximo = self.tabela[posicao]
-        self.tabela[posicao] = novo_nodo  # EXIGÊNCIA DE CÓDIGO 3 de 7
+        if self.tabela[indice] is None:
+            self.tabela[indice] = novo_nodo
+        else:
+            novo_nodo.proximo = self.tabela[indice]
+            self.tabela[indice] = novo_nodo
 
     def imprimir(self):
-        for i in range(10):  # EXIGÊNCIA DE CÓDIGO 4 de 7
-            print(f"Posição {i}: ", end="")
-            atual = self.tabela[i]
-            while atual is not None:
-                print(f"{atual.sigla} ({atual.nomeEstado}) -> ", end="")
+        for i, head in enumerate(self.tabela):
+            print(f"Posição {i}:", end=" ")
+            atual = head
+            while atual:
+                print(atual.sigla, end=" -> ")
                 atual = atual.proximo
             print("None")
 
-def inserir_estados(tabela):
-    estados = [
-        ("AC", "Acre"), ("AL", "Alagoas"), ("AP", "Amapá"), ("AM", "Amazonas"),
-        ("BA", "Bahia"), ("CE", "Ceará"), ("DF", "Distrito Federal"), ("ES", "Espírito Santo"),
-        ("GO", "Goiás"), ("MA", "Maranhão"), ("MT", "Mato Grosso"), ("MS", "Mato Grosso do Sul"),
-        ("MG", "Minas Gerais"), ("PA", "Pará"), ("PB", "Paraíba"), ("PR", "Paraná"),
-        ("PE", "Pernambuco"), ("PI", "Piauí"), ("RJ", "Rio de Janeiro"), ("RN", "Rio Grande do Norte"),
-        ("RS", "Rio Grande do Sul"), ("RO", "Rondônia"), ("RR", "Roraima"), ("SC", "Santa Catarina"),
-        ("SP", "São Paulo"), ("SE", "Sergipe"), ("TO", "Tocantins")
-    ]
 
-    for sigla, nome in estados:
-        tabela.inserir(sigla, nome)
+# Criando a tabela hash
+tabela_hash = TabelaHash()
 
-def inserir_estado_ficticio(tabela, sigla, nomeEstado):
-    tabela.inserir(sigla, nomeEstado)  # EXIGÊNCIA DE CÓDIGO 7 de 7
+# Saída de Console 1 de 3
+print("Tabela Hash antes de inserir qualquer informação:")
+tabela_hash.imprimir()
 
-# Execução do programa
-tabela = TabelaHash()
+# Lista dos estados
+estados = [
+    ("AC", "Acre"),
+    ("AL", "Alagoas"),
+    ("AP", "Amapá"),
+    ("AM", "Amazonas"),
+    ("BA", "Bahia"),
+    ("CE", "Ceará"),
+    ("DF", "Distrito Federal"),
+    ("ES", "Espírito Santo"),
+    ("GO", "Goiás"),
+    ("MA", "Maranhão"),
+    ("MT", "Mato Grosso"),
+    ("MS", "Mato Grosso do Sul"),
+    ("MG", "Minas Gerais"),
+    ("PA", "Pará"),
+    ("PB", "Paraíba"),
+    ("PR", "Paraná"),
+    ("PE", "Pernambuco"),
+    ("PI", "Piauí"),
+    ("RJ", "Rio de Janeiro"),
+    ("RN", "Rio Grande do Norte"),
+    ("RS", "Rio Grande do Sul"),
+    ("RO", "Rondônia"),
+    ("RR", "Roraima"),
+    ("SC", "Santa Catarina"),
+    ("SP", "São Paulo"),
+    ("SE", "Sergipe"),
+    ("TO", "Tocantins"),
+]
 
-print("Tabela Hash inicial (sem inserções):")
-tabela.imprimir()  # EXIGÊNCIA DE SAÍDA DE CONSOLE 1 de 3
+# Inserindo os estados na tabela hash
+for sigla, nome in estados:
+    tabela_hash.inserir(sigla, nome)
 
-inserir_estados(tabela)
+# Saída de Console 2 de 3
+print("\nTabela Hash após inserir os 26 estados e o Distrito Federal - DF:")
+tabela_hash.imprimir()
 
-print("\nTabela Hash após inserção dos estados e Distrito Federal:")
-tabela.imprimir()  # EXIGÊNCIA DE SAÍDA DE CONSOLE 2 de 3
+# Estado fictício com meu nome
+tabela_hash.inserir("DG", "Daniel Gama")
 
-inserir_estado_ficticio(tabela, "BK", "Bruno Kostiuk")
-
-print("\nTabela Hash após inserção dos estados, Distrito Federal e estado fictício:")
-tabela.imprimir()  # EXIGÊNCIA DE SAÍDA DE CONSOLE 3 de 3
+# Saída de Console 3 de 3
+print(
+    "\nTabela Hash após inserir os 26 estados, Distrito Federal – DF e o estado fictício:"
+)
+tabela_hash.imprimir()
