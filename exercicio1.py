@@ -1,16 +1,16 @@
-#Feito por Daniel Gama - RU:4121047
-
-class Nodo:           #Criando Classe Nodo
-    def __init__(self, numero, cor):
+# Feito por Daniel Gama - RU:4121047
+class Nodo:  # Criando Classe Nodo
+    def __init__(self, numero, cor):  # Método Construtor
         self.numero = numero
         self.cor = cor
         self.proximo = None
 
-class ListaEncadeada:    #Criando Classe ListaEncadeada
-    def __init__(self):
+
+class ListaEncadeada:  # Criando Classe ListaEncadeada
+    def __init__(self):  # Método Construtor
         self.head = None
 
-    def inserirSemPrioridade(self, nodo):
+    def inserirSemPrioridade(self, nodo):  # Função para inserir sem prioridade
         if self.head is None:
             self.head = nodo
         else:
@@ -19,32 +19,34 @@ class ListaEncadeada:    #Criando Classe ListaEncadeada
                 atual = atual.proximo
             atual.proximo = nodo
 
-    def inserirComPrioridade(self, nodo):
+    def inserirComPrioridade(self, nodo):  # Função para inserir com prioridade
         if self.head is None:
             self.head = nodo
-        elif self.head.cor == 'V':
+        elif self.head.cor == "V":
             nodo.proximo = self.head
             self.head = nodo
         else:
             atual = self.head
-            while atual.proximo is not None and atual.proximo.cor == 'A':
+            while atual.proximo is not None and atual.proximo.cor == "A":
                 atual = atual.proximo
             nodo.proximo = atual.proximo
             atual.proximo = nodo
 
-    def inserir(self):
+    def inserir(self):  # Função para inserir, encaminha para com/sem prioridade
         cor = input("Digite a cor do cartão (A ou V): ").upper()
         numero = int(input("Digite o número do cartão: "))
         nodo = Nodo(numero, cor)
-        
+
         if self.head is None:
             self.head = nodo
-        elif cor == 'V':
+        elif cor == "V":
             self.inserirSemPrioridade(nodo)
-        elif cor == 'A':
+        elif cor == "A":
             self.inserirComPrioridade(nodo)
 
-    def imprimirListaEspera(self):
+    def imprimirListaEspera(
+        self,
+    ):  # Função para imprimir a lista de espera ou mostrar que está vazia
         if self.head is None:
             print("A lista de espera está vazia.")
         else:
@@ -53,18 +55,18 @@ class ListaEncadeada:    #Criando Classe ListaEncadeada
                 print(f"Cartão {atual.cor} número {atual.numero}")
                 atual = atual.proximo
 
-    def atenderPaciente(self):
+    def atenderPaciente(
+        self,
+    ):  # Função para chamar o paciente ou mostrar que não há mais pacientes
         if self.head is None:
             print("Não há pacientes na fila.")
         else:
-            print(f"Chamando paciente com cartão {self.head.cor} número {self.head.numero}")
+            print(
+                f"Chamando paciente com cartão {self.head.cor} número {self.head.numero}"
+            )
             self.head = self.head.proximo
 
-def apresentacaoDoPrograma():
-    print("-- Programa Triagem Hospital // Daniel Gama RU: 4121047  --")
-    print()
-
-def menu():
+def menu():  # Função do menu principal
     lista = ListaEncadeada()
     while True:
         print()
@@ -88,9 +90,11 @@ def menu():
             print("Encerrando o programa.")
             break
         else:
-            print("Opção inválida. Tente novamente.")
             print()
+            print("Opção inválida. Tente novamente.")
+
 
 if __name__ == "__main__":
-    apresentacaoDoPrograma()
+    print("\n-- Programa Triagem Hospital // Daniel Gama RU: 4121047  --")
+    print()
     menu()
